@@ -26,17 +26,20 @@ function renderAll() {
 
 //*********CONSTRUCTOR FUNCTION**********/
 
-function Location(name,minCust,maxCust,avgCookieBought,cookiesBought) {
+function Location(name,minCust,maxCust,avgCookieBought) {
   this.name = name;
-  this.minCust = minimumcustomer;
-  this.maxCust = maximumcustomer;
+  this.minCust = minCust;
+  this.maxCust = maxCust;
   this.avgCookieBought = averagecookiesbought;
   this.cookiesBought = []
 }
 
 //**********PROTOTYPE METHODS*********/
 
-Locations.prototype.cookiesBought = 
+Location.prototype.getrandomcustomer = function () {
+  // got from MDN docs
+  return Math.floor(Math.random() * (this.maxCust - this.minCust + 1) + this.minCust);
+}
 
 //********OBJECT LITERALS *********
 
