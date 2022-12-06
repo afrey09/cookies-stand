@@ -60,7 +60,7 @@ let tokyo = {
   },
   getcookiesale: function () {
     for (let i = 0; i < hoursOpen.length; i++) {
-      let avgCookieBought = this.avgCookieBought;
+      let avgCookieBought = this.getrandomcustomer() * this.avgCookieBought;
       this.cookiesBought.push(Math.ceil(avgCookieBought));
       console.log(avgCookieBought)
     }
@@ -91,7 +91,7 @@ let dubai = {
   },
   getcookiesale: function () {
     for (let i = 0; i < hoursOpen.length; i++) {
-      let avgCookieBought = this.avgCookieBought;
+      let avgCookieBought = this.getrandomcustomer() * this.avgCookieBought;
       this.cookiesBought.push(Math.ceil(avgCookieBought));
       console.log(avgCookieBought)
     }
@@ -122,7 +122,7 @@ let paris = {
   },
   getcookiesale: function () {
     for (let i = 0; i < hoursOpen.length; i++) {
-      let avgCookieBought = this.avgCookieBought;
+      let avgCookieBought = this.getrandomcustomer() * this.avgCookieBought;
       this.cookiesBought.push(Math.ceil(avgCookieBought));
       console.log(avgCookieBought);
     }
@@ -153,7 +153,7 @@ let lima = {
   },
   getcookiesale: function () {
     for (let i = 0; i < hoursOpen.length; i++) {
-      let avgCookieBought = this.avgCookieBought;
+      let avgCookieBought = this.getrandomcustomer() * this.avgCookieBought;
       this.cookiesBought.push(Math.ceil(avgCookieBought));
       console.log(avgCookieBought)
     }
