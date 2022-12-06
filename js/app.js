@@ -7,7 +7,36 @@
 
 function getrandomcustomer() { }
 
+//*********EXECUTABLE CODE********/
+
+let seattle = new Location()
+
 //******** HELPER FUNCTIONS / UTILITIES*******/
+
+//push new objects into an array - for easy storage - this will help with lab
+cookieCaboodle.push(seattle,tokyo,dubai,paris,lima);
+//cookieCaboodle = [{...}, {...}, {...}]
+
+function renderAll() {
+  for (let i = 0, i < cookieCaboodle.length; i++) {
+    cookieCaboodle[i].getcookiesBought();
+    cookieCaboodle[i].render();
+  }
+}
+
+//*********CONSTRUCTOR FUNCTION**********/
+
+function Location(name,minCust,maxCust,avgCookieBought,cookiesBought) {
+  this.name = name;
+  this.minCust = minimumcustomer;
+  this.maxCust = maximumcustomer;
+  this.avgCookieBought = averagecookiesbought;
+  this.cookiesBought = []
+}
+
+//**********PROTOTYPE METHODS*********/
+
+Locations.prototype.cookiesBought = 
 
 //********OBJECT LITERALS *********
 
