@@ -5,23 +5,117 @@
 //  What am I going to display?
 //********GLOBALS**********
 
-function getrandomcustomer() { }
+let locationArray = [];
+
+let hoursOpen = ['6am', '7am', '8am', '9am', '10am', '11am', '12pm', '1pm', '2pm', '3pm', '4pm', '5pm', '6pm', '7pm'];
+
+//*********DOM WINDOW********/
+
+let table = document.getElementById('Locations');
+
+//console.dir(locationSection);
+
+//*********EXECUTABLE CODE********/
+
+let seattle = new Location('Seattle', 23, 65, 6.3);
+let tokyo = new Location('Tokyo', 3, 24, 1.2);
+let dubai = new Location('Dubai', 11, 38, 3.7);
+let paris = new Location('Paris', 20, 38, 2.3);
+let lima = new Location('Lima', 2, 16, 4.6);
+
+
+locationArray.push(seattle, tokyo, dubai, paris, lima);
+//locationArray = [{...}, {...}, {...}]
+
+
+
 
 //******** HELPER FUNCTIONS / UTILITIES*******/
 
+//push new objects into an array - for easy storage - this will help with lab
+
+
+function randomTotal(min, max) {
+  return Math.floor(Math.random() * (max - min + 1) + min);
+}
+
+//*********CONSTRUCTOR FUNCTION**********/
+
+function Location(name, minCust, maxCust, avgCookieBought) {
+  this.name = name;
+  this.minCust = minCust;
+  this.maxCust = maxCust;
+  this.avgCookieBought = avgCookieBought;
+  this.cookiesBought = [];
+  this.total = 0;
+}
+
+//**********PROTOTYPE METHODS*********/
+
+Location.prototype.getrandomcustomer = function () {
+  // got from MDN docs
+  return Math.floor(Math.random() * (this.maxCust - this.minCust + 1) + this.minCust);
+}
+
+Location.prototype.getcookiesale = function () {
+  for (let i = 0; i < hoursOpen.length; i++) {
+    let avgCookieBought = this.getrandomcustomer() * this.avgCookieBought;
+    this.cookiesBought.push(Math.ceil(avgCookieBought));
+  }
+
+  Location.prototype.render = function () {
+    let tableOneElem = document.createElement('tr');
+    table.appendChild(tableOneElem)
+
+    let storeElem = document.createElement('td'); 
+    storeElem.textContent = this.name;
+    tableOneElem.appendChild(storeElem);
+
+    for (let i = 0; i < hoursOpen.length; i++) {
+      let liElem = document.createElement('td');
+      liElem.textContent = this.cookiesBought[i];
+      tableOneElem.appendChild(liElem);
+    }
+  }
+};
+
+function makeHeader() {
+  let thead = document.querySelector('thead'); 
+  let headerRow = document.createElement ('tr');
+  thead.appendChild(headerRow);
+
+  let firstCell = document.createElement ('td');
+  headerRow.appendChild(firstCell);
+
+  for (let i = 0; i < hoursOpen.length; i++) {
+    let headerCell = document.createElement('th');
+    headerCell.textContent = hoursOpen[i];
+    headerRow.appendChild(headerCell);
+  }
+  let lastCell = document.createElement ('th');
+  lastCell.textContent = 'Daily Store Totals';
+  headerRow.appendChild(lastCell);
+}
+
+
+makeHeader();
+
+
+
+
 //********OBJECT LITERALS *********
 
-let hoursOpen = ['6am', '7am', '8am', '9am', '10am', '11am', '12pm', '1pm', '2pm', '3pm', '4pm', '5pm', '6pm', '7pm'];
 
 //Calculate and store the simulated amounts of cookies purchased for each hour at each location using average cookies purchased and the random number of customers generated.
 //Store the results for each location in a separate array… perhaps as a property of the object representing that location.
 
-let seattle = {
+/* let seattle = {
   name: 'Seattle',
   minCust: 23,
   maxCust: 65,
   avgCookieBought: 6.3,
   cookiesBought: [],
+  total: 0,
   getrandomcustomer: function () {
     // got from MDN docs
     return Math.floor(Math.random() * (this.maxCust - this.minCust + 1) + this.minCust);
@@ -171,5 +265,13 @@ let lima = {
 
 lima.getcookiesale();
 lima.render();
-console.log(lima);
+console.log(lima); */
 
+function renderAll() {
+  for (let i = 0; i < locationArray.length; i++) {
+    locationArray[i].getcookiesale();
+    locationArray[i].render();
+  }
+};
+
+renderAll();
