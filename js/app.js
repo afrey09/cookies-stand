@@ -55,19 +55,20 @@ function Location(name, minCust, maxCust, avgCookieBought) {
 Location.prototype.getrandomcustomer = function () {
   // got from MDN docs
   return Math.floor(Math.random() * (this.maxCust - this.minCust + 1) + this.minCust);
-}
+};
 
 Location.prototype.getcookiesale = function () {
   for (let i = 0; i < hoursOpen.length; i++) {
     let avgCookieBought = this.getrandomcustomer() * this.avgCookieBought;
     this.cookiesBought.push(Math.ceil(avgCookieBought));
+    this.total += Math.ceil(avgCookieBought);  
   }
 
   Location.prototype.render = function () {
     let tableOneElem = document.createElement('tr');
-    table.appendChild(tableOneElem)
+    table.appendChild(tableOneElem);
 
-    let storeElem = document.createElement('td'); 
+    let storeElem = document.createElement('td');
     storeElem.textContent = this.name;
     tableOneElem.appendChild(storeElem);
 
@@ -76,15 +77,19 @@ Location.prototype.getcookiesale = function () {
       liElem.textContent = this.cookiesBought[i];
       tableOneElem.appendChild(liElem);
     }
-  }
+
+  let liElem = document.createElement('td')
+  liElem.textContent = this.total;
+  tableOneElem.appendChild(liElem);
+  };
 };
 
 function makeHeader() {
-  let thead = document.querySelector('thead'); 
-  let headerRow = document.createElement ('tr');
+  let thead = document.querySelector('thead');
+  let headerRow = document.createElement('tr');
   thead.appendChild(headerRow);
 
-  let firstCell = document.createElement ('td');
+  let firstCell = document.createElement('td');
   headerRow.appendChild(firstCell);
 
   for (let i = 0; i < hoursOpen.length; i++) {
@@ -92,13 +97,47 @@ function makeHeader() {
     headerCell.textContent = hoursOpen[i];
     headerRow.appendChild(headerCell);
   }
-  let lastCell = document.createElement ('th');
-  lastCell.textContent = 'Daily Store Totals';
+  let lastCell = document.createElement('th');
+  lastCell.textContent = 'DAILY TOTALS';
   headerRow.appendChild(lastCell);
 }
 
 
 makeHeader();
+
+function makeFooter() {
+  let tfoot = document.querySelector('tfoot');
+  let footerRow = document.createElement('tr');
+  tfoot.appendChild(footerRow);
+
+  let firstCell = document.createElement('td');
+  footerRow.appendChild(firstCell);
+
+  firstCell.textContent = 'Grand Total';
+
+  let grandTotal = 0
+
+  for (let i = 0; i < hoursOpen.length; i++) {
+    let hourlyTotal = 0
+    for (let j = 0; j < locationArray.length; j++) {
+      let cookieNum = locationArray[j].cookiesBought[i];
+      hourlyTotal = hourlyTotal + cookieNum 
+      console.log('hourly total', hourlyTotal)
+    }
+    grandTotal = grandTotal + hourlyTotal;
+    console.log('grand total', grandTotal);
+
+    let footerCell = document.createElement('th');
+    footerCell.textContent = hourlyTotal;
+    footerRow.appendChild(footerCell);
+  }
+  let lastCell = document.createElement('th');
+  lastCell.textContent = grandTotal;
+  footerRow.appendChild(lastCell);
+}
+
+
+
 
 
 
@@ -275,3 +314,4 @@ function renderAll() {
 };
 
 renderAll();
+makeFooter();
